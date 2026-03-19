@@ -1,0 +1,977 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wavelength</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #faf6ef;
+  --surface: #f0e8d8;
+  --card: #fffcf7;
+  --border: rgba(60,40,20,0.12);
+  --coral: #e8614a;
+  --teal: #2e8b84;
+  --mustard: #d4a017;
+  --cream: #f5ede0;
+  --navy: #1e2d40;
+  --sage: #6b8f71;
+  --rust: #c0522a;
+  --text: #1e2d40;
+  --muted: #7a6a55;
+  --radius: 14px;
+  --shadow: 0 2px 16px rgba(60,40,20,0.10);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Space Grotesk', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* TEXTURE OVERLAY */
+body::before {
+  content: '';
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  opacity: 0.6;
+}
+
+/* RETRO STRIPE LINES */
+.bg-shapes { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+.stripe {
+  position: absolute;
+  top: 0; bottom: 0;
+  opacity: 0.13;
+}
+.stripe1 { left: 6%; width: 18px; background: var(--coral); }
+.stripe2 { left: calc(6% + 22px); width: 10px; background: var(--mustard); }
+.stripe3 { left: calc(6% + 36px); width: 14px; background: var(--teal); }
+.stripe4 { left: calc(6% + 54px); width: 8px; background: var(--rust); }
+.stripe5 { right: 6%; width: 18px; background: var(--teal); }
+.stripe6 { right: calc(6% + 22px); width: 10px; background: var(--coral); }
+.stripe7 { right: calc(6% + 36px); width: 14px; background: var(--mustard); }
+.stripe8 { right: calc(6% + 54px); width: 8px; background: var(--navy); }
+
+.app { position: relative; z-index: 1; max-width: 680px; margin: 0 auto; padding: 16px 14px 60px; }
+
+/* HEADER */
+header { text-align: center; padding: 28px 0 20px; position: relative; width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+header h1 {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: clamp(2rem, 6vw, 3.4rem);
+  color: var(--teal);
+  letter-spacing: -1px;
+  line-height: 1;
+  text-transform: uppercase;
+  text-align: center;
+  width: 100%;
+  display: block;
+}
+header h1 span { color: var(--coral); }
+header p { color: var(--muted); font-size: 0.88rem; margin-top: 6px; font-weight: 500; letter-spacing: 0.3px; }
+.header-line { width: 60px; height: 3px; background: var(--coral); border-radius: 2px; margin: 10px auto 0; }
+
+/* SCREENS */
+.screen { display: none; }
+.screen.active { display: block; animation: fadeUp 0.3s ease; }
+@keyframes fadeUp { from{opacity:0;transform:translateY(14px)} to{opacity:1;transform:translateY(0)} }
+
+/* CARDS */
+.card {
+  background: var(--card);
+  border-radius: var(--radius);
+  padding: 20px 18px;
+  margin-bottom: 12px;
+  border: 1.5px solid var(--border);
+  box-shadow: var(--shadow);
+}
+.card-title {
+  font-size: 0.7rem; font-weight: 700; color: var(--muted);
+  text-transform: uppercase; letter-spacing: 2px; margin-bottom: 12px;
+}
+
+/* INPUTS */
+input[type="text"] {
+  width: 100%;
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: 10px;
+  padding: 10px 13px;
+  color: var(--text);
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.92rem; font-weight: 600;
+  outline: none; transition: border-color 0.2s;
+}
+input[type="text"]:focus { border-color: var(--teal); }
+input[type="text"]::placeholder { color: var(--muted); font-weight: 500; }
+
+/* BUTTONS */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 7px;
+  padding: 13px 20px; border-radius: 11px; border: none; cursor: pointer;
+  font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 0.93rem;
+  transition: all 0.2s; width: 100%;
+}
+.btn-primary {
+  background: var(--coral); color: white; padding: 15px; font-size: 1rem;
+  border-radius: 12px; box-shadow: 0 4px 14px rgba(232,97,74,0.3);
+}
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 22px rgba(232,97,74,0.4); background: #d45540; }
+.btn-teal {
+  background: var(--teal); color: white; padding: 15px; font-size: 1rem;
+  border-radius: 12px; box-shadow: 0 4px 14px rgba(46,139,132,0.25);
+}
+.btn-teal:hover { transform: translateY(-2px); background: #267870; }
+.btn-ghost {
+  background: var(--surface); color: var(--muted);
+  border: 1.5px solid var(--border); padding: 11px; border-radius: 11px; font-size: 0.85rem;
+}
+.btn-ghost:hover { border-color: var(--teal); color: var(--teal); }
+.btn-danger { background: rgba(232,97,74,0.1); color: var(--coral); border: 1.5px solid rgba(232,97,74,0.25); padding: 8px 12px; border-radius: 8px; font-size: 0.8rem; width: auto; }
+.btn-danger:hover { background: rgba(232,97,74,0.2); }
+.shuffle-btn { background: none; border: 1.5px solid var(--border); border-radius: 8px; color: var(--muted); padding: 7px 12px; cursor: pointer; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 0.78rem; transition: all 0.2s; }
+.shuffle-btn:hover { border-color: var(--mustard); color: var(--mustard); }
+.btn-row { display: flex; gap: 10px; }
+.btn-row .btn { flex: 1; }
+
+.field-label { font-size: 0.7rem; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; display: block; margin-bottom: 5px; }
+
+/* LEVEL SELECTOR */
+.level-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; }
+.level-btn {
+  background: var(--surface); border: 2px solid var(--border);
+  border-radius: 12px; padding: 14px 8px; cursor: pointer; text-align: center;
+  transition: all 0.2s; font-family: 'Space Grotesk', sans-serif;
+}
+.level-btn:hover { border-color: var(--teal); }
+.level-btn.selected { border-color: var(--coral); background: rgba(232,97,74,0.07); }
+.level-btn .lv-emoji { font-size: 1.4rem; display: block; margin-bottom: 5px; }
+.level-btn .lv-name { font-size: 0.85rem; font-weight: 700; color: var(--text); }
+.level-btn .lv-desc { font-size: 0.68rem; color: var(--muted); margin-top: 2px; }
+.level-btn.selected .lv-name { color: var(--coral); }
+
+/* TEAMS */
+.teams-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 10px; }
+.team-row-item { display: flex; gap: 8px; align-items: center; }
+.team-row-item input { flex: 1; }
+.solo-toggle { display: flex; align-items: center; gap: 8px; cursor: pointer; margin-bottom: 12px; }
+.solo-toggle input[type="checkbox"] { width: 16px; height: 16px; accent-color: var(--coral); cursor: pointer; }
+.solo-toggle span { font-size: 0.85rem; font-weight: 600; color: var(--muted); }
+
+.divider { height: 1.5px; background: var(--border); margin: 12px 0; }
+
+/* SCOREBOARD */
+.scoreboard { display: flex; gap: 8px; margin-bottom: 12px; flex-wrap: wrap; }
+.sc {
+  flex: 1; min-width: 80px; background: var(--card); border-radius: 11px; padding: 10px 8px;
+  text-align: center; border: 1.5px solid var(--border); transition: all 0.3s; box-shadow: var(--shadow);
+}
+.sc.active { border-color: var(--coral); background: rgba(232,97,74,0.06); }
+.sc .sn { font-size: 0.66rem; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.sc .sp { font-family: 'Syne', sans-serif; font-size: 1.9rem; margin-top: 1px; color: var(--navy); }
+.sc.active .sp { color: var(--coral); }
+
+.turn-lbl { text-align: center; font-size: 0.8rem; font-weight: 600; color: var(--muted); margin-bottom: 12px; }
+
+.phase-tag { text-align: center; margin-bottom: 10px; }
+.phase-tag span { display: inline-block; padding: 5px 16px; border-radius: 20px; font-size: 0.72rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; }
+.phase-tag.psychic span { background: rgba(212,160,23,0.15); color: var(--mustard); border: 1.5px solid rgba(212,160,23,0.3); }
+.phase-tag.team span { background: rgba(46,139,132,0.12); color: var(--teal); border: 1.5px solid rgba(46,139,132,0.25); }
+
+/* SPECTRUM EDIT */
+.spectrum-edit-row { display: grid; grid-template-columns: 1fr 36px 1fr; gap: 8px; align-items: end; }
+.vs-box { background: var(--surface); border: 1.5px solid var(--border); border-radius: 8px; padding: 10px 4px; font-size: 0.66rem; font-weight: 700; color: var(--muted); text-align: center; letter-spacing: 1px; }
+.spectrum-hint { font-size: 0.72rem; color: var(--muted); font-weight: 500; margin-top: 5px; }
+
+/* END BADGES */
+.end-badge { flex: 1; text-align: center; padding: 9px 10px; border-radius: 11px; font-weight: 700; font-size: 0.88rem; border: 2px solid; line-height: 1.3; }
+.end-badge.left { color: var(--coral); border-color: rgba(232,97,74,0.3); background: rgba(232,97,74,0.07); }
+.end-badge.right { color: var(--teal); border-color: rgba(46,139,132,0.3); background: rgba(46,139,132,0.07); }
+.spectrum-label-row { display: flex; gap: 8px; align-items: center; }
+.vs-chip { flex-shrink: 0; font-size: 0.68rem; font-weight: 700; color: var(--muted); letter-spacing: 1.5px; }
+
+/* DEFINITION TOOLTIP */
+.def-wrap { position: relative; display: inline-block; margin-left: 6px; }
+.def-icon {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 18px; height: 18px; border-radius: 50%;
+  background: var(--teal); color: white;
+  font-size: 0.65rem; font-weight: 700; cursor: pointer;
+  flex-shrink: 0; border: none; font-family: 'Space Grotesk', sans-serif;
+  transition: background 0.2s;
+}
+.def-icon:hover { background: var(--navy); }
+.def-tooltip {
+  display: none; position: absolute; bottom: 130%; left: 50%; transform: translateX(-50%);
+  background: var(--navy); color: white; border-radius: 10px;
+  padding: 10px 12px; font-size: 0.76rem; font-weight: 500; line-height: 1.5;
+  width: 220px; z-index: 50; box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+  pointer-events: none;
+}
+.def-tooltip::after {
+  content: ''; position: absolute; top: 100%; left: 50%; transform: translateX(-50%);
+  border: 6px solid transparent; border-top-color: var(--navy);
+}
+.def-wrap:hover .def-tooltip, .def-wrap.open .def-tooltip { display: block; animation: fadeUp 0.2s ease; }
+
+/* PAIR DISPLAY WITH DEF */
+.pair-display {
+  display: flex; align-items: center; justify-content: center; gap: 6px;
+  margin-bottom: 14px; flex-wrap: wrap;
+}
+.pair-side { display: flex; align-items: center; gap: 4px; }
+
+/* DIAL */
+.dial-section { margin: 0 auto; max-width: 460px; }
+.semicircle-wrap { position: relative; width: 100%; padding-bottom: 62%; user-select: none; touch-action: none; }
+.semicircle-svg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: visible; cursor: pointer; }
+
+.zones-legend { display: flex; justify-content: center; gap: 10px; margin-bottom: 8px; flex-wrap: wrap; }
+.zone-pill { display: flex; align-items: center; gap: 5px; font-size: 0.67rem; font-weight: 700; color: var(--muted); }
+.zone-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.dial-hint { text-align: center; font-size: 0.74rem; color: var(--muted); font-weight: 600; margin-top: 22px; }
+
+.psychic-merged-card { background: var(--card); border-radius: var(--radius); padding: 18px 16px; margin-bottom: 12px; border: 1.5px solid var(--border); box-shadow: var(--shadow); }
+.edit-row-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+
+/* SAVED */
+.saved-list { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+.saved-tag { background: rgba(46,139,132,0.1); border: 1.5px solid rgba(46,139,132,0.25); color: var(--teal); padding: 4px 10px; border-radius: 20px; font-size: 0.74rem; font-weight: 700; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; gap: 4px; }
+.saved-tag:hover { background: rgba(46,139,132,0.18); }
+.saved-tag .del { color: var(--muted); font-size: 1rem; }
+
+/* RESULT */
+.result-box { border-radius: 14px; padding: 18px; text-align: center; margin-bottom: 12px; display: none; border: 2px solid; }
+.result-box.show { display: block; animation: fadeUp 0.4s ease; }
+.result-big { font-family: 'Syne', sans-serif; font-size: 2.8rem; line-height: 1; }
+.result-sub { font-size: 0.88rem; font-weight: 700; margin-top: 5px; }
+.result-detail { font-size: 0.74rem; color: var(--muted); margin-top: 5px; }
+
+/* HOW TO LIST */
+.how-list { list-style: none; }
+.how-list li { display: flex; gap: 11px; align-items: flex-start; margin-bottom: 9px; font-size: 0.86rem; line-height: 1.5; color: var(--muted); }
+.how-list li strong { color: var(--text); }
+.num-b { background: var(--coral); color: white; width: 21px; height: 21px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.68rem; font-weight: 700; flex-shrink: 0; margin-top: 2px; }
+
+/* WINNER */
+.winner-box { text-align: center; padding: 20px 0; }
+.trophy { font-size: 5rem; animation: boun 0.6s ease infinite alternate; display: block; margin-bottom: 12px; color: var(--mustard); font-family: 'Syne', sans-serif; font-weight: 800; }
+@keyframes boun { to { transform: translateY(-12px); } }
+.win-name { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 2.4rem; color: var(--coral); }
+.win-score { color: var(--muted); font-size: 0.92rem; margin-top: 7px; font-weight: 600; }
+
+/* FAB BAR */
+.fab-bar { display: none; justify-content: center; padding: 10px 0 20px; }
+.fab-bar.visible { display: flex; }
+.fab { background: var(--card); border: 1.5px solid var(--border); border-radius: 20px; color: var(--muted); font-size: 0.82rem; font-family: 'Space Grotesk', sans-serif; font-weight: 700; padding: 9px 20px; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; gap: 6px; box-shadow: var(--shadow); }
+.fab:hover { border-color: var(--teal); color: var(--teal); }
+
+/* MODAL */
+.modal-overlay { position: fixed; inset: 0; background: rgba(30,45,64,0.55); z-index: 200; display: none; align-items: center; justify-content: center; padding: 20px; backdrop-filter: blur(4px); }
+.modal-overlay.open { display: flex; animation: fadeUp 0.25s ease; }
+.modal-box { background: var(--card); border-radius: 18px; padding: 24px 20px; width: 100%; max-width: 380px; border: 1.5px solid var(--border); box-shadow: 0 20px 60px rgba(30,45,64,0.25); }
+.modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+.modal-header h3 { font-family: 'Syne', sans-serif; font-size: 1.3rem; color: var(--navy); }
+.modal-close { background: none; border: none; color: var(--muted); font-size: 1.4rem; cursor: pointer; line-height: 1; padding: 2px 6px; border-radius: 6px; }
+.modal-close:hover { color: var(--text); }
+.modal-level-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; }
+
+.confetti-piece { position: fixed; width: 10px; height: 10px; top: -10px; border-radius: 2px; animation: cfal linear forwards; pointer-events: none; z-index: 999; }
+@keyframes cfal { to { transform: translateY(110vh) rotate(720deg); opacity: 0; } }
+
+@media(max-width:480px){
+  .btn-row{flex-direction:column;}
+  .spectrum-edit-row{grid-template-columns:1fr;}
+  .vs-box{display:none;}
+}
+</style>
+</head>
+<body>
+<div class="bg-shapes">
+  <div class="stripe stripe1"></div>
+  <div class="stripe stripe2"></div>
+  <div class="stripe stripe3"></div>
+  <div class="stripe stripe4"></div>
+  <div class="stripe stripe5"></div>
+  <div class="stripe stripe6"></div>
+  <div class="stripe stripe7"></div>
+  <div class="stripe stripe8"></div>
+</div>
+
+<div class="app">
+  <header>
+    <h1>WAVE<span>LENGTH</span></h1>
+    <div class="header-line"></div>
+    <p>The spectrum guessing game</p>
+  </header>
+
+  <!-- SETUP -->
+  <div class="screen active" id="s-setup">
+    <div class="card">
+      <div class="card-title">How to Play</div>
+      <ul class="how-list">
+        <li><span class="num-b">1</span><span>A random spectrum pair appears each round. You can shuffle or edit it anytime.</span></li>
+        <li><span class="num-b">2</span><span>The <strong>Psychic</strong> secretly sees where the target sits on the dial, then gives <strong>one clue out loud</strong>.</span></li>
+        <li><span class="num-b">3</span><span>The <strong>Team</strong> debates and drags the needle to their best guess, then locks in.</span></li>
+        <li><span class="num-b">4</span><span>Closer = more points. Play as many rounds as you like!</span></li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Vocabulary Level</div>
+      <div class="level-grid">
+        <div class="level-btn selected" id="lvl-easy" onclick="selectLevel('easy')">
+          
+          <div class="lv-name">Easy</div>
+          <div class="lv-desc">Simple, familiar words</div>
+        </div>
+        <div class="level-btn" id="lvl-moderate" onclick="selectLevel('moderate')">
+          
+          <div class="lv-name">Moderate</div>
+          <div class="lv-desc">Everyday nuance</div>
+        </div>
+        <div class="level-btn" id="lvl-advanced" onclick="selectLevel('advanced')">
+          
+          <div class="lv-name">Advanced</div>
+          <div class="lv-desc">Rich vocabulary</div>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="card-title">Players / Teams</div>
+      <label class="solo-toggle">
+        <input type="checkbox" id="solo-mode" onchange="toggleSoloMode()">
+        <span>Solo / Pair mode — no teams, just track total score</span>
+      </label>
+      <div id="teams-section">
+        <div class="teams-list" id="teams-list"></div>
+        <button class="btn btn-ghost" onclick="addTeam()" style="font-size:0.82rem;padding:10px">+ Add team</button>
+      </div>
+    </div>
+
+    <button class="btn btn-primary" onclick="startGame()">Start Game</button>
+  </div>
+
+  <!-- PSYCHIC SCREEN -->
+  <div class="screen" id="s-psychic">
+    <div id="sb-py" class="scoreboard"></div>
+    <div class="turn-lbl" id="lbl-py"></div>
+    <div class="phase-tag psychic"><span>Psychic only — don't show the screen</span></div>
+
+    <div class="psychic-merged-card">
+      <div class="edit-row-header">
+        <div class="card-title" style="margin:0">This Round's Spectrum</div>
+        <button class="shuffle-btn" onclick="shufflePair()">🔀 New pair</button>
+      </div>
+      <p class="spectrum-hint" style="margin-bottom:10px">Feel free to edit either side below, or type your own. The dial updates as you type.</p>
+
+      <div class="spectrum-edit-row" style="margin-bottom:6px">
+        <div>
+          <label class="field-label">Left End</label>
+          <input type="text" id="left-in" maxlength="34" placeholder="e.g. Useless" oninput="onLabelInput()">
+        </div>
+        <div class="vs-box">VS</div>
+        <div>
+          <label class="field-label">Right End</label>
+          <input type="text" id="right-in" maxlength="34" placeholder="e.g. Very Useful" oninput="onLabelInput()">
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+        <div class="card-title" style="margin:0;font-size:0.66rem">Saved <span style="text-transform:none;letter-spacing:0;font-weight:500">(tap to load)</span></div>
+        <button class="shuffle-btn" onclick="savePair()">Save</button>
+      </div>
+      <div class="saved-list" id="saved-list"></div>
+
+      <div class="divider"></div>
+
+      <div class="zones-legend">
+        <div class="zone-pill"><div class="zone-dot" style="background:#2e8b84"></div>Bullseye (4)</div>
+        <div class="zone-pill"><div class="zone-dot" style="background:#d4a017"></div>Close (3)</div>
+        <div class="zone-pill"><div class="zone-dot" style="background:#c0522a"></div>Near (2)</div>
+        <div class="zone-pill"><div class="zone-dot" style="background:#e8614a"></div>Far (1)</div>
+      </div>
+
+      <div class="dial-section" style="margin-top:10px">
+        <div class="semicircle-wrap">
+          <svg class="semicircle-svg" id="py-svg" viewBox="0 0 400 240"></svg>
+        </div>
+      </div>
+      <p style="font-size:0.76rem;color:var(--muted);text-align:center;margin-top:22px;font-weight:600">Memorise the target position, then give your clue out loud.</p>
+    </div>
+
+    <button class="btn btn-teal" onclick="goToTeam()">Done — Pass to Team</button>
+  </div>
+
+  <!-- TEAM VIEW -->
+  <div class="screen" id="s-team">
+    <div id="sb-tm" class="scoreboard"></div>
+    <div class="turn-lbl" id="lbl-tm"></div>
+    <div class="phase-tag team"><span>Debate and move the needle</span></div>
+
+    <div class="card">
+      <!-- Pair display with definition helpers -->
+      <div class="pair-display" id="pair-display"></div>
+
+      <div class="zones-legend" style="margin-bottom:10px">
+        <div class="zone-pill"><div class="zone-dot" style="background:#2e8b84"></div>Bullseye (4)</div>
+        <div class="zone-pill"><div class="zone-dot" style="background:#d4a017"></div>Close (3)</div>
+        <div class="zone-pill"><div class="zone-dot" style="background:#c0522a"></div>Near (2)</div>
+        <div class="zone-pill"><div class="zone-dot" style="background:#e8614a"></div>Far (1)</div>
+      </div>
+
+      <div class="dial-section">
+        <div class="semicircle-wrap">
+          <svg class="semicircle-svg" id="tm-svg" viewBox="0 0 400 240"></svg>
+        </div>
+      </div>
+      <div class="dial-hint" id="dial-hint">Drag the needle or tap anywhere on the dial</div>
+    </div>
+
+    <div class="result-box" id="result-box">
+      <div class="result-big" id="r-big"></div>
+      <div class="result-sub" id="r-sub"></div>
+      <div class="result-detail" id="r-detail"></div>
+    </div>
+    <div id="team-actions">
+      <button class="btn btn-primary" onclick="lockIn()">Lock In</button>
+    </div>
+  </div>
+
+  <!-- WINNER -->
+  <div class="screen" id="s-winner">
+    <div class="winner-box">
+      <span class="trophy">★</span>
+      <div class="win-name" id="w-name"></div>
+      <div class="win-score" id="w-score"></div>
+    </div>
+    <br>
+    <div class="scoreboard" id="sb-win"></div>
+    <br>
+    <button class="btn btn-primary" onclick="fullReset()">Play Again 🔄</button>
+  </div>
+
+  <!-- FAB BAR -->
+  <div class="fab-bar" id="fab-bar">
+    <button class="fab" onclick="openModal()">Change Level</button>
+  </div>
+</div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="level-modal" onclick="closeModalOutside(event)">
+  <div class="modal-box">
+    <div class="modal-header">
+      <h3>Change Level</h3>
+      <button class="modal-close" onclick="closeModal()">×</button>
+    </div>
+    <div class="modal-level-grid">
+      <div class="level-btn" id="mlvl-easy" onclick="changeLevel('easy')">
+        <div class="lv-name">Easy</div>
+      </div>
+      <div class="level-btn" id="mlvl-moderate" onclick="changeLevel('moderate')">
+        <div class="lv-name">Moderate</div>
+      </div>
+      <div class="level-btn" id="mlvl-advanced" onclick="changeLevel('advanced')">
+        <div class="lv-name">Advanced</div>
+      </div>
+    </div>
+    <p style="font-size:0.74rem;color:var(--muted);margin-top:12px;text-align:center;font-weight:500">Takes effect from the next round. Scores are kept.</p>
+  </div>
+</div>
+
+<script>
+// ===== PAIRS WITH DEFINITIONS =====
+// Format: [leftLabel, rightLabel, leftDef?, rightDef?]
+const PAIRS = {
+  easy: [
+    ['Cold','Hot'],['Fast','Slow'],['Happy','Sad'],['Big','Small'],['Loud','Quiet'],
+    ['Dark','Bright'],['Old','New'],['Hard','Easy'],['Clean','Messy'],['Cheap','Expensive'],
+    ['Boring','Exciting'],['Bad gift','Great gift'],['Scary animal','Cute animal'],
+    ['Bad day','Perfect day'],['Terrible food','Delicious food'],['Bad idea','Good idea'],
+    ['Weak','Strong'],['Ugly','Beautiful'],['Dangerous','Safe'],['Useless','Very useful'],
+    ['Bad habit','Good habit'],['Rainy day','Sunny day'],['Bad luck','Good luck'],
+    ['Easy game','Very hard game'],['Bad excuse','Good excuse'],
+    ['Sad movie','Happy movie'],['Boring book','Exciting book'],['Bad dream','Great dream'],
+    ['Too cold','Too hot'],['Annoying sound','Beautiful sound'],['Wrong answer','Perfect answer'],
+    ['Terrible smell','Amazing smell'],['Uncomfortable','Very comfortable'],
+    ['Short trip','Long adventure'],['Bad weather','Perfect weather'],
+    ['Too early','Too late'],['Forgettable meal','Unforgettable meal'],
+    ['Easy question','Impossible question'],['Bad teacher','Inspiring teacher'],
+    ['Boring class','Best class ever'],['Quiet place','Lively place'],
+    ['Bad joke','Hilarious joke'],['Cheap toy','Expensive toy'],
+    ['Empty room','Full of people'],['Bad song','Favourite song'],
+    ['Cold shower','Hot bath'],['Terrible movie','Amazing movie'],
+    ['Hard bed','Super comfortable bed'],['Slow internet','Super fast internet'],
+    ['Bad morning','Perfect morning'],['Tiring walk','Relaxing walk'],
+    ['Horrible traffic','Empty road'],['Bad haircut','Great haircut'],
+  ],
+  moderate: [
+    ['Overrated','Underrated','More popular than it deserves','Deserves far more recognition'],
+    ['Forgettable','Unforgettable','Easy to forget','Impossible to forget'],
+    ['Cringe','Cool','Embarrassing or awkward','Impressive and admirable'],
+    ['Introvert','Extrovert','Prefers alone time to recharge','Gains energy from others'],
+    ['Zero effort','Maximum effort'],
+    ['Bad superpower','Amazing superpower'],
+    ['Nightmare scenario','Dream scenario','The worst possible situation','The best possible outcome'],
+    ['Unpopular opinion','Universally loved opinion','A view most disagree with','Something almost everyone agrees on'],
+    ['Reckless','Careful','Acting without thinking','Always thinking ahead'],
+    ['Childish','Mature','Acting younger than your age','Showing good judgment'],
+    ['Forgettable movie','Iconic movie','A film nobody remembers','A film that defined a generation'],
+    ['Awkward silence','Comfortable silence','An uncomfortable pause','A quiet moment that feels natural'],
+    ['Mediocre meal','Meal you still think about'],
+    ['Terrible advice','Life-changing advice'],
+    ['Weird habit','Totally relatable habit','Something most find strange','Something everyone secretly does'],
+    ['Bad travel experience','Unforgettable travel experience'],
+    ['Dull conversation starter','Great conversation starter'],
+    ['Bad apology','Genuinely good apology'],
+    ['Annoying coworker trait','Dream coworker trait'],
+    ['Would never visit','Dream destination'],
+    ['Bad excuse','Somehow believable excuse'],
+    ['Unhealthy food choice','Healthy food choice'],
+    ['Ridiculous idea','Brilliant idea'],
+    ['Bad interview answer','Perfect interview answer'],
+    ['Pointless meeting','Meeting that actually changed things'],
+    ['Empty promise','Promise someone actually kept'],
+    ['Forgettable first impression','Unforgettable first impression'],
+    ['Bad roommate habit','Ideal roommate habit'],
+    ['Terrible icebreaker','Great icebreaker question'],
+    ['Unmotivating morning routine','Energising morning routine'],
+    ['Boring hobby','Hobby you wish you had started earlier'],
+    ['Bad gift for a friend','Perfect gift for a friend'],
+    ['Confusing explanation','Crystal clear explanation'],
+    ['Useless life skill','Life skill everyone should know'],
+    ['Annoying tourist behaviour','Respectful tourist behaviour'],
+    ['Worst way to spend a Sunday','Best way to spend a Sunday'],
+    ['Terrible study method','Study method that actually works'],
+    ['Unhelpful feedback','Feedback that made you better'],
+    ['Missed opportunity','Opportunity you are glad you took'],
+    ['Forgettable song','Song stuck in your head for years'],
+    ['Bad first date idea','Great first date idea'],
+    ['Draining social event','Social event you were glad you went to'],
+    ['Regrettable purchase','Purchase that changed your daily life'],
+    ['Overcomplicating things','Keeping it simple'],
+    ['Being too harsh','Being too lenient'],
+    ['Saying yes too much','Saying no at the right time'],
+    ['Living in the past','Living in the present'],
+    ['Overthinking everything','Trusting your instincts'],
+    ['Avoiding conflict','Addressing things directly'],
+    ['Following the crowd','Going your own way'],
+  ],
+  advanced: [
+    // Abstract concepts with definitions
+    ['Mundane','Extraordinary','Completely ordinary and dull','Exceptionally unusual or impressive'],
+    ['Banal','Profound','Obvious and lacking depth','Deep and meaningful, shifts your thinking'],
+    ['Pedantic','Insightful','Fixated on minor details, missing the bigger picture','Revealing something others consistently miss'],
+    ['Pretentious','Genuine','Performing depth or sophistication','Authentic, no performance required'],
+    ['Vapid','Captivating','Offering nothing interesting','Impossible to look away from'],
+    ['Patronising','Empowering','Treating someone as less capable than they are','Making someone feel strong and capable'],
+    ['Insufferable','Magnetic','Impossible to be around','Impossible not to be drawn to'],
+    ['Ephemeral','Timeless','Lasting only a short time','Enduring forever, never going out of style'],
+    ['Ostentatious','Understated','Showy, trying too hard to impress','Quietly impressive without drawing attention'],
+    ['Hollow victory','Hard-earned success','Winning in a way that feels empty','Achieving something through real sacrifice'],
+    // Phrase-based life concepts
+    ['A decision you made out of fear','A decision you made out of courage'],
+    ['A compliment that felt like an insult','A compliment that stayed with you for years'],
+    ['Saying the right thing at the wrong time','Saying the right thing at exactly the right moment'],
+    ['Doing the right thing for the wrong reason','Doing the wrong thing for the right reason'],
+    ['A life that looks good from the outside','A life that feels good from the inside'],
+    ['Fitting in to survive','Standing out to thrive'],
+    ['Knowing something but not feeling it yet','Feeling something before you can explain it'],
+    ['Advice that was right but too early','Advice that was right at exactly the right time'],
+    ['A version of yourself you outgrew','A version of yourself you are still becoming'],
+    ['Changing because you had to','Changing because you chose to'],
+    ['Loyalty that holds you back','Loyalty that pushes you forward'],
+    ['A mistake you keep making','A mistake you only needed to make once'],
+    ['Performing confidence','Actually feeling confident'],
+    ['Needing approval from others','Trusting your own judgment'],
+    ['Staying somewhere you have outgrown','Leaving before you were ready'],
+    ['Talking about doing something','Actually doing it'],
+    ['Comparing yourself to who others are','Comparing yourself to who you were'],
+    ['Being busy but not productive','Being still but deeply focused'],
+    ['Knowing your worth but not acting like it','Knowing your worth and living by it'],
+    ['A truth everyone knows but nobody says','A truth that shocks people every time'],
+    // Pop culture and society phrases
+    ['Content that goes viral for the wrong reasons','Content that quietly changes minds'],
+    ['Fame that fades in a week','A legacy that outlives the person'],
+    ['A trend everyone follows but nobody questioned','A trend that actually improved something'],
+    ['A story that needed to be told differently','A story told in exactly the right way'],
+    ['A rule everyone follows but nobody can explain','A rule that exists for a very good reason'],
+    ['Technology that was supposed to help but complicated things','Technology that genuinely changed lives for the better'],
+    ['A word that lost its meaning from overuse','A word that means exactly what it says'],
+    ['An apology that made things worse','An apology that actually repaired something'],
+    ['Criticism disguised as concern','Criticism that came from genuine care'],
+    ['A movement that started strong and lost its way','A movement that changed something permanently'],
+    // Work and ambition
+    ['Working hard in the wrong direction','Working smart in exactly the right direction'],
+    ['A job that pays well but costs you more','A job that pays less but gives you more'],
+    ['Ambition driven by fear of failure','Ambition driven by love of the work'],
+    ['Getting credit you did not earn','Earning credit that never got recognised'],
+    ['Succeeding by someone else\'s definition','Succeeding on your own terms'],
+    ['Being the smartest person in the room','Being in a room that makes you smarter'],
+    ['Burning out to prove something','Pacing yourself because you are in it for the long run'],
+    ['A career that impressed everyone except you','A career that fulfilled you even when nobody noticed'],
+    // Interpersonal and emotional
+    ['An argument you won but still lost','A conversation that was hard but repaired everything'],
+    ['Being understood by no one','Being truly known by one person'],
+    ['Helping someone who did not ask','Letting someone ask before you help'],
+    ['Forgiving someone for their sake','Forgiving someone for your own sake'],
+    ['A friendship that ended quietly','A friendship that lasted without trying'],
+    ['Loving someone and letting them go','Loving someone by staying'],
+  ]
+};
+
+// ===== STATE =====
+let teams=['Team 1','Team 2'], scores=[], currentTeam=0, round=1;
+let targetAngle=90, needleAngle=90;
+let leftLabel='', rightLabel='', leftDef='', rightDef='';
+let locked=false, saved=[], usedPairs=[], currentLevel='easy', soloMode=false;
+let labelDebounce=null, teamInputs=['Team 1','Team 2'];
+
+try{saved=JSON.parse(localStorage.getItem('wl5_saved')||'[]');}catch(e){}
+
+// ===== SETUP =====
+function initTeamsList(){
+  const el=document.getElementById('teams-list'); el.innerHTML='';
+  teamInputs.forEach((name,i)=>{
+    const row=document.createElement('div'); row.className='team-row-item';
+    row.innerHTML=`<input type="text" value="${name}" maxlength="16" placeholder="Team ${i+1}" oninput="teamInputs[${i}]=this.value">
+      ${teamInputs.length>1?`<button class="btn btn-danger" onclick="removeTeam(${i})">✕</button>`:''}`;
+    el.appendChild(row);
+  });
+}
+function addTeam(){ if(teamInputs.length>=6)return; teamInputs.push('Team '+(teamInputs.length+1)); initTeamsList(); }
+function removeTeam(i){ if(teamInputs.length<=1)return; teamInputs.splice(i,1); initTeamsList(); }
+function toggleSoloMode(){
+  soloMode=document.getElementById('solo-mode').checked;
+  document.getElementById('teams-section').style.opacity=soloMode?'0.4':'1';
+  document.getElementById('teams-section').style.pointerEvents=soloMode?'none':'auto';
+}
+function selectLevel(lvl){
+  currentLevel=lvl;
+  ['easy','moderate','advanced'].forEach(l=>document.getElementById('lvl-'+l).classList.toggle('selected',l===lvl));
+}
+
+// ===== SVG =====
+const CX=200,CY=200,R=180,INNER=56;
+const ZONES=[{h:6,c:'#2e8b84',pts:4},{h:16,c:'#d4a017',pts:3},{h:28,c:'#c0522a',pts:2},{h:42,c:'#e8614a',pts:1}];
+
+function aXY(deg,r){ const a=(180-deg)*Math.PI/180; return{x:CX+r*Math.cos(a),y:CY-r*Math.sin(a)}; }
+function dSlice(ro,ri,s,e){
+  const so=aXY(s,ro),eo=aXY(e,ro),si=aXY(s,ri),ei=aXY(e,ri),lg=(e-s)>180?1:0;
+  return`M${so.x} ${so.y} A${ro} ${ro} 0 ${lg} 1 ${eo.x} ${eo.y} L${ei.x} ${ei.y} A${ri} ${ri} 0 ${lg} 0 ${si.x} ${si.y}Z`;
+}
+function ns(t){return document.createElementNS('http://www.w3.org/2000/svg',t);}
+function sPath(svg,d,f,op=1){const p=ns('path');p.setAttribute('d',d);p.setAttribute('fill',f);p.setAttribute('opacity',op);svg.appendChild(p);}
+function sLine(svg,x1,y1,x2,y2,s,w,op=1){
+  const l=ns('line');[['x1',x1],['y1',y1],['x2',x2],['y2',y2],['stroke',s],['stroke-width',w],['opacity',op],['stroke-linecap','round']].forEach(([k,v])=>l.setAttribute(k,v));svg.appendChild(l);return l;
+}
+function sCircle(svg,cx,cy,r,f,s='none',sw=0){
+  const c=ns('circle');[['cx',cx],['cy',cy],['r',r],['fill',f],['stroke',s],['stroke-width',sw]].forEach(([k,v])=>c.setAttribute(k,v));svg.appendChild(c);return c;
+}
+function sTicks(svg){
+  for(let a=0;a<=180;a+=15){
+    const o=aXY(a,R+2),i=aXY(a,a%45===0?R-16:R-9);
+    sLine(svg,i.x,i.y,o.x,o.y,'rgba(30,45,64,0.2)',a%45===0?2.5:1.5);
+  }
+}
+function sText(svg,x,y,text,fill,anchor,size=11){
+  const t=ns('text');t.setAttribute('x',x);t.setAttribute('y',y);t.setAttribute('fill',fill);
+  t.setAttribute('font-size',size);t.setAttribute('font-weight','700');
+  t.setAttribute('font-family','DM Sans,sans-serif');t.setAttribute('text-anchor',anchor);
+  const words=text.split(' ');
+  if(words.length<=3&&text.length<=16){t.textContent=text;}
+  else{
+    const mid=Math.ceil(words.length/2);
+    const t1=ns('tspan');t1.setAttribute('x',x);t1.setAttribute('dy','0');t1.textContent=words.slice(0,mid).join(' ');
+    const t2=ns('tspan');t2.setAttribute('x',x);t2.setAttribute('dy','15');t2.textContent=words.slice(mid).join(' ');
+    t.appendChild(t1);t.appendChild(t2);
+  }
+  svg.appendChild(t);
+}
+
+function buildDial(svgId, tgt, showTarget, needleAng){
+  const svg=document.getElementById(svgId); svg.innerHTML='';
+  // Background arc with warm cream fill
+  sPath(svg,dSlice(R,INNER,0,180),'#e8ddd0');
+  // Outer ring
+  const bgRing=ns('path'); bgRing.setAttribute('d',dSlice(R+4,R,0,180)); bgRing.setAttribute('fill','rgba(30,45,64,0.08)'); svg.appendChild(bgRing);
+
+  if(showTarget){
+    for(let i=ZONES.length-1;i>=0;i--){
+      const z=ZONES[i],s=Math.max(0,tgt-z.h),e=Math.min(180,tgt+z.h);
+      sPath(svg,dSlice(R,INNER,s,e),z.c,0.85);
+    }
+  }
+  sTicks(svg);
+  sCircle(svg,CX,CY,10,'#c8bfb0');
+  sCircle(svg,CX,CY,6,'#1e2d40');
+
+  if(showTarget && needleAng===undefined){
+    // Psychic: show target pin
+    const tp=aXY(tgt,R*0.7);
+    sLine(svg,CX,CY,tp.x,tp.y,'#d4a017',5,0.95);
+    sCircle(svg,tp.x,tp.y,14,'#d4a017','white',2.5);
+    // Sparkle dot inside
+    sCircle(svg,tp.x,tp.y,5,'white');
+  } else {
+    // Team: show needle
+    if(showTarget){
+      const tp=aXY(tgt,R*0.7);
+      sCircle(svg,tp.x,tp.y,18,'rgba(212,160,23,0.22)','#d4a017',2);
+    }
+    const np=aXY(needleAng,R*0.7);
+    sLine(svg,CX,CY,np.x,np.y,'#1e2d40',5,0.85);
+    const nc=sCircle(svg,np.x,np.y,15,'#1e2d40','white',3);
+    nc.style.filter='drop-shadow(0 2px 8px rgba(30,45,64,0.35))';
+    nc.id='needle-circle';
+    // White dot inside needle
+    sCircle(svg,np.x,np.y,5,'white');
+  }
+  sText(svg,10,CY+44,leftLabel,'#e8614a','start',10);
+  sText(svg,390,CY+44,rightLabel,'#2e8b84','end',10);
+}
+
+// ===== IMPROVED NEEDLE INTERACTION =====
+// Uses the full SVG area, not just the needle circle
+function xyToAngle(svgEl, cx, cy){
+  const rect=svgEl.getBoundingClientRect();
+  const sx=(cx-rect.left)*(400/rect.width);
+  const sy=(cy-rect.top)*(210/rect.height);
+  const dx=sx-CX, dy=CY-sy;
+  // Only respond if within reasonable distance of the dial
+  const dist=Math.sqrt(dx*dx+dy*dy);
+  if(dist<10) return null; // ignore dead center
+  let angle=Math.atan2(dy,dx)*180/Math.PI;
+  let our=180-angle;
+  if(our<0) our=0;
+  if(our>180) our=180;
+  // Allow interaction anywhere in the upper half (dy >= -20 for forgiveness)
+  if(dy < -30 && dist > R+20) return null;
+  return Math.round(our);
+}
+
+function setupTeamDial(){
+  const svg=document.getElementById('tm-svg');
+  const move=(cx,cy)=>{
+    if(locked)return;
+    const a=xyToAngle(svg,cx,cy);
+    if(a===null)return;
+    needleAngle=a;
+    buildDial('tm-svg',targetAngle,false,needleAngle);
+    setupTeamDial();
+  };
+  svg.onmousedown=(e)=>{
+    if(locked)return;
+    move(e.clientX,e.clientY);
+    const mv=(ev)=>move(ev.clientX,ev.clientY);
+    const up=()=>{document.removeEventListener('mousemove',mv);document.removeEventListener('mouseup',up);};
+    document.addEventListener('mousemove',mv);
+    document.addEventListener('mouseup',up);
+  };
+  svg.ontouchstart=(e)=>{
+    if(locked)return;
+    e.preventDefault();
+    move(e.touches[0].clientX,e.touches[0].clientY);
+    const mv=(ev)=>{ev.preventDefault();move(ev.touches[0].clientX,ev.touches[0].clientY);};
+    const up=()=>{document.removeEventListener('touchmove',mv);document.removeEventListener('touchend',up);};
+    document.addEventListener('touchmove',mv,{passive:false});
+    document.addEventListener('touchend',up);
+  };
+}
+
+// ===== LABEL AUTO-UPDATE =====
+function onLabelInput(){
+  clearTimeout(labelDebounce);
+  labelDebounce=setTimeout(()=>{
+    const l=document.getElementById('left-in').value.trim();
+    const r=document.getElementById('right-in').value.trim();
+    if(l){leftLabel=l;leftDef='';}
+    if(r){rightLabel=r;rightDef='';}
+    buildDial('py-svg',targetAngle,true,undefined);
+  },250);
+}
+
+// ===== DEFINITION HELPERS =====
+function buildPairDisplay(){
+  const el=document.getElementById('pair-display');
+  // Left side
+  let leftHtml=`<div class="end-badge left">${leftLabel}</div>`;
+  if(leftDef) leftHtml+=`<div class="def-wrap"><button class="def-icon" onclick="this.parentElement.classList.toggle('open')">?</button><div class="def-tooltip">${leftDef}</div></div>`;
+
+  // Right side
+  let rightHtml=`<div class="end-badge right">${rightLabel}</div>`;
+  if(rightDef) rightHtml+=`<div class="def-wrap"><button class="def-icon" onclick="this.parentElement.classList.toggle('open')">?</button><div class="def-tooltip">${rightDef}</div></div>`;
+
+  el.innerHTML=`<div class="pair-side">${leftHtml}</div><div class="vs-chip">VS</div><div class="pair-side">${rightHtml}</div>`;
+}
+
+// ===== GAME FLOW =====
+function startGame(){
+  if(soloMode){teams=['Points'];scores=[0];}
+  else{teams=teamInputs.map((t,i)=>t.trim()||'Team '+(i+1));scores=teams.map(()=>0);}
+  currentTeam=0;round=1;usedPairs=[];goToPsychic();
+}
+
+function getPair(){
+  const pool=PAIRS[currentLevel];
+  if(usedPairs.length>=pool.length)usedPairs=[];
+  const avail=pool.map((_,i)=>i).filter(i=>!usedPairs.includes(i));
+  const idx=avail[Math.floor(Math.random()*avail.length)];
+  usedPairs.push(idx);
+  return pool[idx];
+}
+
+function applyPair(pair){
+  leftLabel=pair[0]; rightLabel=pair[1];
+  leftDef=pair[2]||''; rightDef=pair[3]||'';
+}
+
+function goToPsychic(){
+  const pair=getPair(); applyPair(pair);
+  document.getElementById('left-in').value=leftLabel;
+  document.getElementById('right-in').value=rightLabel;
+  targetAngle=Math.round(15+Math.random()*150);
+  document.getElementById('lbl-py').textContent=soloMode?'Round '+round:teams[currentTeam]+' · Round '+round;
+  renderSB('sb-py'); renderSaved();
+  buildDial('py-svg',targetAngle,true,undefined);
+  show('s-psychic');
+}
+
+function shufflePair(){
+  const pair=getPair(); applyPair(pair);
+  document.getElementById('left-in').value=leftLabel;
+  document.getElementById('right-in').value=rightLabel;
+  buildDial('py-svg',targetAngle,true,undefined);
+}
+
+function savePair(){
+  const l=document.getElementById('left-in').value.trim(),r=document.getElementById('right-in').value.trim();
+  if(!l||!r)return;
+  const key=l+'|||'+r;
+  if(!saved.includes(key)){saved.push(key);try{localStorage.setItem('wl5_saved',JSON.stringify(saved));}catch(e){}renderSaved();}
+}
+function loadSaved(i){
+  const[l,r]=saved[i].split('|||');
+  leftLabel=l;rightLabel=r;leftDef='';rightDef='';
+  document.getElementById('left-in').value=l;document.getElementById('right-in').value=r;
+  buildDial('py-svg',targetAngle,true,undefined);
+}
+function delSaved(i,e){
+  e.stopPropagation();saved.splice(i,1);
+  try{localStorage.setItem('wl5_saved',JSON.stringify(saved));}catch(e2){}renderSaved();
+}
+function renderSaved(){
+  const el=document.getElementById('saved-list');
+  if(!saved.length){el.innerHTML='<span style="font-size:0.74rem;color:var(--muted)">No saved spectrums yet.</span>';return;}
+  el.innerHTML=saved.map((k,i)=>{const[l,r]=k.split('|||');return`<div class="saved-tag" onclick="loadSaved(${i})">${l} ↔ ${r}<span class="del" onclick="delSaved(${i},event)">×</span></div>`;}).join('');
+}
+
+function goToTeam(){
+  needleAngle=90;locked=false;
+  document.getElementById('lbl-tm').textContent=soloMode?'Round '+round:teams[currentTeam]+' · Round '+round;
+  document.getElementById('result-box').classList.remove('show');
+  document.getElementById('team-actions').innerHTML='<button class="btn btn-primary" onclick="lockIn()">Lock In</button>';
+  document.getElementById('dial-hint').textContent='Drag the needle or tap anywhere on the dial';
+  renderSB('sb-tm');
+  buildPairDisplay();
+  buildDial('tm-svg',targetAngle,false,needleAngle);
+  setupTeamDial();
+  show('s-team');
+}
+
+function lockIn(){
+  if(locked)return; locked=true;
+  const diff=Math.abs(needleAngle-targetAngle);
+  let pts=0,color='',emoji='',label='';
+  if(diff<=ZONES[0].h)      {pts=4;color='#2e8b84';emoji='🎯';label='Bullseye! Absolutely perfect!';}
+  else if(diff<=ZONES[1].h) {pts=3;color='#d4a017';emoji='🔥';label='So close! Great read!';}
+  else if(diff<=ZONES[2].h) {pts=2;color='#c0522a';emoji='👏';label='Pretty good!';}
+  else if(diff<=ZONES[3].h) {pts=1;color='#e8614a';emoji='🙂';label='1 point — not bad!';}
+  else                      {pts=0;color='#7a6a55';emoji='😬';label='Miss! Better luck next round.';}
+
+  scores[currentTeam]+=pts;
+  buildDial('tm-svg',targetAngle,true,needleAngle);
+  setupTeamDial();
+
+  const box=document.getElementById('result-box');
+  box.style.background=color+'18'; box.style.borderColor=color+'40';
+  document.getElementById('r-big').innerHTML='<span style="color:'+color+'">'+emoji+' '+pts+' pt'+(pts!==1?'s':'')+'</span>';
+  document.getElementById('r-sub').textContent=label;
+  document.getElementById('r-detail').textContent='Target: '+targetAngle+'° · Your guess: '+needleAngle+'° · '+diff+'° off';
+  box.classList.add('show');
+  document.getElementById('dial-hint').textContent='Target revealed!';
+  if(pts>=3) confetti(pts===4?65:35);
+  renderSB('sb-tm');
+
+  if(!soloMode){currentTeam=(currentTeam+1)%teams.length;if(currentTeam===0)round++;}else{round++;}
+  document.getElementById('team-actions').innerHTML='<button class="btn btn-teal" onclick="goToPsychic()">Next Round</button>';
+}
+
+function renderSB(id){
+  if(soloMode){
+    document.getElementById(id).innerHTML='<div class="sc active" style="max-width:130px;margin:0 auto"><div class="sn">Total Score</div><div class="sp">'+scores[0]+'</div></div>';
+    return;
+  }
+  document.getElementById(id).innerHTML=teams.map((t,i)=>
+    '<div class="sc '+(i===currentTeam?'active':'')+'"><div class="sn">'+t+'</div><div class="sp">'+scores[i]+'</div></div>'
+  ).join('');
+}
+
+function show(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  const fab=document.getElementById('fab-bar');
+  if(fab) fab.classList.toggle('visible',id!=='s-setup');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function openModal(){
+  ['easy','moderate','advanced'].forEach(l=>{
+    const el=document.getElementById('mlvl-'+l);
+    if(el) el.classList.toggle('selected',l===currentLevel);
+  });
+  document.getElementById('level-modal').classList.add('open');
+}
+function closeModal(){ document.getElementById('level-modal').classList.remove('open'); }
+function closeModalOutside(e){ if(e.target===document.getElementById('level-modal')) closeModal(); }
+function changeLevel(lvl){
+  currentLevel=lvl;
+  ['easy','moderate','advanced'].forEach(l=>{
+    const sb=document.getElementById('lvl-'+l),mb=document.getElementById('mlvl-'+l);
+    if(sb) sb.classList.toggle('selected',l===lvl);
+    if(mb) mb.classList.toggle('selected',l===lvl);
+  });
+  usedPairs=[];
+  closeModal();
+}
+
+function fullReset(){
+  scores=[];currentTeam=0;round=1;usedPairs=[];
+  initTeamsList();
+  show('s-setup');
+}
+
+function confetti(n){
+  const cols=['#e8614a','#d4a017','#2e8b84','#6b8f71','#c0522a','#1e2d40'];
+  for(let i=0;i<n;i++){
+    setTimeout(()=>{
+      const el=document.createElement('div');el.className='confetti-piece';
+      el.style.cssText='left:'+Math.random()*100+'vw;background:'+cols[~~(Math.random()*cols.length)]+';animation-duration:'+(1.4+Math.random()*2)+'s;animation-delay:'+Math.random()*0.4+'s;transform:rotate('+Math.random()*360+'deg)';
+      document.body.appendChild(el);setTimeout(()=>el.remove(),3200);
+    },i*22);
+  }
+}
+
+initTeamsList();
+renderSaved();
+</script>
+</body>
+</html>

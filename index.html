@@ -34,47 +34,47 @@ body {
 
 /* TEXTURE OVERLAY */
 body::before {
-content: ‘’;
-position: fixed; inset: 0; z-index: 0; pointer-events: none;
-background-image: url(“data:image/svg+xml,%3Csvg xmlns=‘http://www.w3.org/2000/svg’ width=‘300’ height=‘300’%3E%3Cfilter id=‘n’%3E%3CfeTurbulence type=‘fractalNoise’ baseFrequency=‘0.75’ numOctaves=‘4’ stitchTiles=‘stitch’/%3E%3C/filter%3E%3Crect width=‘300’ height=‘300’ filter=‘url(%23n)’ opacity=‘0.04’/%3E%3C/svg%3E”);
-opacity: 0.6;
+  content: '';
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  opacity: 0.6;
 }
 
 /* RETRO STRIPE LINES */
 .bg-shapes { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
 .stripe {
-position: absolute;
-top: 0; bottom: 0;
-opacity: 0.13;
+  position: absolute;
+  top: 0; bottom: 0;
+  opacity: 0.13;
 }
-.stripe1 { left: 6%; width: 18px; background: var(–coral); }
-.stripe2 { left: calc(6% + 22px); width: 10px; background: var(–mustard); }
-.stripe3 { left: calc(6% + 36px); width: 14px; background: var(–teal); }
-.stripe4 { left: calc(6% + 54px); width: 8px; background: var(–rust); }
-.stripe5 { right: 6%; width: 18px; background: var(–teal); }
-.stripe6 { right: calc(6% + 22px); width: 10px; background: var(–coral); }
-.stripe7 { right: calc(6% + 36px); width: 14px; background: var(–mustard); }
-.stripe8 { right: calc(6% + 54px); width: 8px; background: var(–navy); }
+.stripe1 { left: 6%; width: 18px; background: var(--coral); }
+.stripe2 { left: calc(6% + 22px); width: 10px; background: var(--mustard); }
+.stripe3 { left: calc(6% + 36px); width: 14px; background: var(--teal); }
+.stripe4 { left: calc(6% + 54px); width: 8px; background: var(--rust); }
+.stripe5 { right: 6%; width: 18px; background: var(--teal); }
+.stripe6 { right: calc(6% + 22px); width: 10px; background: var(--coral); }
+.stripe7 { right: calc(6% + 36px); width: 14px; background: var(--mustard); }
+.stripe8 { right: calc(6% + 54px); width: 8px; background: var(--navy); }
 
 .app { position: relative; z-index: 1; max-width: 680px; margin: 0 auto; padding: 16px 14px 60px; }
 
 /* HEADER */
 header { text-align: center; padding: 28px 0 20px; position: relative; width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; }
 header h1 {
-font-family: ‘Syne’, sans-serif;
-font-weight: 800;
-font-size: clamp(2rem, 6vw, 3.4rem);
-color: var(–teal);
-letter-spacing: -1px;
-line-height: 1;
-text-transform: uppercase;
-text-align: center;
-width: 100%;
-display: block;
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: clamp(2rem, 6vw, 3.4rem);
+  color: var(--teal);
+  letter-spacing: -1px;
+  line-height: 1;
+  text-transform: uppercase;
+  text-align: center;
+  width: 100%;
+  display: block;
 }
-header h1 span { color: var(–coral); }
-header p { color: var(–muted); font-size: 0.88rem; margin-top: 6px; font-weight: 500; letter-spacing: 0.3px; }
-.header-line { width: 60px; height: 3px; background: var(–coral); border-radius: 2px; margin: 10px auto 0; }
+header h1 span { color: var(--coral); }
+header p { color: var(--muted); font-size: 0.88rem; margin-top: 6px; font-weight: 500; letter-spacing: 0.3px; }
+.header-line { width: 60px; height: 3px; background: var(--coral); border-radius: 2px; margin: 10px auto 0; }
 
 /* SCREENS */
 .screen { display: none; }
@@ -83,146 +83,146 @@ header p { color: var(–muted); font-size: 0.88rem; margin-top: 6px; font-weigh
 
 /* CARDS */
 .card {
-background: var(–card);
-border-radius: var(–radius);
-padding: 20px 18px;
-margin-bottom: 12px;
-border: 1.5px solid var(–border);
-box-shadow: var(–shadow);
+  background: var(--card);
+  border-radius: var(--radius);
+  padding: 20px 18px;
+  margin-bottom: 12px;
+  border: 1.5px solid var(--border);
+  box-shadow: var(--shadow);
 }
 .card-title {
-font-size: 0.7rem; font-weight: 700; color: var(–muted);
-text-transform: uppercase; letter-spacing: 2px; margin-bottom: 12px;
+  font-size: 0.7rem; font-weight: 700; color: var(--muted);
+  text-transform: uppercase; letter-spacing: 2px; margin-bottom: 12px;
 }
 
 /* INPUTS */
-input[type=“text”] {
-width: 100%;
-background: var(–surface);
-border: 1.5px solid var(–border);
-border-radius: 10px;
-padding: 10px 13px;
-color: var(–text);
-font-family: ‘Space Grotesk’, sans-serif;
-font-size: 0.92rem; font-weight: 600;
-outline: none; transition: border-color 0.2s;
+input[type="text"] {
+  width: 100%;
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: 10px;
+  padding: 10px 13px;
+  color: var(--text);
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.92rem; font-weight: 600;
+  outline: none; transition: border-color 0.2s;
 }
-input[type=“text”]:focus { border-color: var(–teal); }
-input[type=“text”]::placeholder { color: var(–muted); font-weight: 500; }
+input[type="text"]:focus { border-color: var(--teal); }
+input[type="text"]::placeholder { color: var(--muted); font-weight: 500; }
 
 /* BUTTONS */
 .btn {
-display: inline-flex; align-items: center; justify-content: center; gap: 7px;
-padding: 13px 20px; border-radius: 11px; border: none; cursor: pointer;
-font-family: ‘Space Grotesk’, sans-serif; font-weight: 700; font-size: 0.93rem;
-transition: all 0.2s; width: 100%;
+  display: inline-flex; align-items: center; justify-content: center; gap: 7px;
+  padding: 13px 20px; border-radius: 11px; border: none; cursor: pointer;
+  font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 0.93rem;
+  transition: all 0.2s; width: 100%;
 }
 .btn-primary {
-background: var(–coral); color: white; padding: 15px; font-size: 1rem;
-border-radius: 12px; box-shadow: 0 4px 14px rgba(232,97,74,0.3);
+  background: var(--coral); color: white; padding: 15px; font-size: 1rem;
+  border-radius: 12px; box-shadow: 0 4px 14px rgba(232,97,74,0.3);
 }
 .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 22px rgba(232,97,74,0.4); background: #d45540; }
 .btn-teal {
-background: var(–teal); color: white; padding: 15px; font-size: 1rem;
-border-radius: 12px; box-shadow: 0 4px 14px rgba(46,139,132,0.25);
+  background: var(--teal); color: white; padding: 15px; font-size: 1rem;
+  border-radius: 12px; box-shadow: 0 4px 14px rgba(46,139,132,0.25);
 }
 .btn-teal:hover { transform: translateY(-2px); background: #267870; }
 .btn-ghost {
-background: var(–surface); color: var(–muted);
-border: 1.5px solid var(–border); padding: 11px; border-radius: 11px; font-size: 0.85rem;
+  background: var(--surface); color: var(--muted);
+  border: 1.5px solid var(--border); padding: 11px; border-radius: 11px; font-size: 0.85rem;
 }
-.btn-ghost:hover { border-color: var(–teal); color: var(–teal); }
-.btn-danger { background: rgba(232,97,74,0.1); color: var(–coral); border: 1.5px solid rgba(232,97,74,0.25); padding: 8px 12px; border-radius: 8px; font-size: 0.8rem; width: auto; }
+.btn-ghost:hover { border-color: var(--teal); color: var(--teal); }
+.btn-danger { background: rgba(232,97,74,0.1); color: var(--coral); border: 1.5px solid rgba(232,97,74,0.25); padding: 8px 12px; border-radius: 8px; font-size: 0.8rem; width: auto; }
 .btn-danger:hover { background: rgba(232,97,74,0.2); }
-.shuffle-btn { background: none; border: 1.5px solid var(–border); border-radius: 8px; color: var(–muted); padding: 7px 12px; cursor: pointer; font-family: ‘Space Grotesk’, sans-serif; font-weight: 700; font-size: 0.78rem; transition: all 0.2s; }
-.shuffle-btn:hover { border-color: var(–mustard); color: var(–mustard); }
+.shuffle-btn { background: none; border: 1.5px solid var(--border); border-radius: 8px; color: var(--muted); padding: 7px 12px; cursor: pointer; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 0.78rem; transition: all 0.2s; }
+.shuffle-btn:hover { border-color: var(--mustard); color: var(--mustard); }
 .btn-row { display: flex; gap: 10px; }
 .btn-row .btn { flex: 1; }
 
-.field-label { font-size: 0.7rem; font-weight: 700; color: var(–muted); text-transform: uppercase; letter-spacing: 1px; display: block; margin-bottom: 5px; }
+.field-label { font-size: 0.7rem; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; display: block; margin-bottom: 5px; }
 
 /* LEVEL SELECTOR */
 .level-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; }
 .level-btn {
-background: var(–surface); border: 2px solid var(–border);
-border-radius: 12px; padding: 14px 8px; cursor: pointer; text-align: center;
-transition: all 0.2s; font-family: ‘Space Grotesk’, sans-serif;
+  background: var(--surface); border: 2px solid var(--border);
+  border-radius: 12px; padding: 14px 8px; cursor: pointer; text-align: center;
+  transition: all 0.2s; font-family: 'Space Grotesk', sans-serif;
 }
-.level-btn:hover { border-color: var(–teal); }
-.level-btn.selected { border-color: var(–coral); background: rgba(232,97,74,0.07); }
+.level-btn:hover { border-color: var(--teal); }
+.level-btn.selected { border-color: var(--coral); background: rgba(232,97,74,0.07); }
 .level-btn .lv-emoji { font-size: 1.4rem; display: block; margin-bottom: 5px; }
-.level-btn .lv-name { font-size: 0.85rem; font-weight: 700; color: var(–text); }
-.level-btn .lv-desc { font-size: 0.68rem; color: var(–muted); margin-top: 2px; }
-.level-btn.selected .lv-name { color: var(–coral); }
+.level-btn .lv-name { font-size: 0.85rem; font-weight: 700; color: var(--text); }
+.level-btn .lv-desc { font-size: 0.68rem; color: var(--muted); margin-top: 2px; }
+.level-btn.selected .lv-name { color: var(--coral); }
 
 /* TEAMS */
 .teams-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 10px; }
 .team-row-item { display: flex; gap: 8px; align-items: center; }
 .team-row-item input { flex: 1; }
 .solo-toggle { display: flex; align-items: center; gap: 8px; cursor: pointer; margin-bottom: 12px; }
-.solo-toggle input[type=“checkbox”] { width: 16px; height: 16px; accent-color: var(–coral); cursor: pointer; }
-.solo-toggle span { font-size: 0.85rem; font-weight: 600; color: var(–muted); }
+.solo-toggle input[type="checkbox"] { width: 16px; height: 16px; accent-color: var(--coral); cursor: pointer; }
+.solo-toggle span { font-size: 0.85rem; font-weight: 600; color: var(--muted); }
 
-.divider { height: 1.5px; background: var(–border); margin: 12px 0; }
+.divider { height: 1.5px; background: var(--border); margin: 12px 0; }
 
 /* SCOREBOARD */
 .scoreboard { display: flex; gap: 8px; margin-bottom: 12px; flex-wrap: wrap; }
 .sc {
-flex: 1; min-width: 80px; background: var(–card); border-radius: 11px; padding: 10px 8px;
-text-align: center; border: 1.5px solid var(–border); transition: all 0.3s; box-shadow: var(–shadow);
+  flex: 1; min-width: 80px; background: var(--card); border-radius: 11px; padding: 10px 8px;
+  text-align: center; border: 1.5px solid var(--border); transition: all 0.3s; box-shadow: var(--shadow);
 }
-.sc.active { border-color: var(–coral); background: rgba(232,97,74,0.06); }
-.sc .sn { font-size: 0.66rem; font-weight: 700; color: var(–muted); text-transform: uppercase; letter-spacing: 1px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.sc .sp { font-family: ‘Syne’, sans-serif; font-size: 1.9rem; margin-top: 1px; color: var(–navy); }
-.sc.active .sp { color: var(–coral); }
+.sc.active { border-color: var(--coral); background: rgba(232,97,74,0.06); }
+.sc .sn { font-size: 0.66rem; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.sc .sp { font-family: 'Syne', sans-serif; font-size: 1.9rem; margin-top: 1px; color: var(--navy); }
+.sc.active .sp { color: var(--coral); }
 
-.turn-lbl { text-align: center; font-size: 0.8rem; font-weight: 600; color: var(–muted); margin-bottom: 12px; }
+.turn-lbl { text-align: center; font-size: 0.8rem; font-weight: 600; color: var(--muted); margin-bottom: 12px; }
 
 .phase-tag { text-align: center; margin-bottom: 10px; }
 .phase-tag span { display: inline-block; padding: 5px 16px; border-radius: 20px; font-size: 0.72rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; }
-.phase-tag.psychic span { background: rgba(212,160,23,0.15); color: var(–mustard); border: 1.5px solid rgba(212,160,23,0.3); }
-.phase-tag.team span { background: rgba(46,139,132,0.12); color: var(–teal); border: 1.5px solid rgba(46,139,132,0.25); }
+.phase-tag.psychic span { background: rgba(212,160,23,0.15); color: var(--mustard); border: 1.5px solid rgba(212,160,23,0.3); }
+.phase-tag.team span { background: rgba(46,139,132,0.12); color: var(--teal); border: 1.5px solid rgba(46,139,132,0.25); }
 
 /* SPECTRUM EDIT */
 .spectrum-edit-row { display: grid; grid-template-columns: 1fr 36px 1fr; gap: 8px; align-items: end; }
-.vs-box { background: var(–surface); border: 1.5px solid var(–border); border-radius: 8px; padding: 10px 4px; font-size: 0.66rem; font-weight: 700; color: var(–muted); text-align: center; letter-spacing: 1px; }
-.spectrum-hint { font-size: 0.72rem; color: var(–muted); font-weight: 500; margin-top: 5px; }
+.vs-box { background: var(--surface); border: 1.5px solid var(--border); border-radius: 8px; padding: 10px 4px; font-size: 0.66rem; font-weight: 700; color: var(--muted); text-align: center; letter-spacing: 1px; }
+.spectrum-hint { font-size: 0.72rem; color: var(--muted); font-weight: 500; margin-top: 5px; }
 
 /* END BADGES */
 .end-badge { flex: 1; text-align: center; padding: 9px 10px; border-radius: 11px; font-weight: 700; font-size: 0.88rem; border: 2px solid; line-height: 1.3; }
-.end-badge.left { color: var(–coral); border-color: rgba(232,97,74,0.3); background: rgba(232,97,74,0.07); }
-.end-badge.right { color: var(–teal); border-color: rgba(46,139,132,0.3); background: rgba(46,139,132,0.07); }
+.end-badge.left { color: var(--coral); border-color: rgba(232,97,74,0.3); background: rgba(232,97,74,0.07); }
+.end-badge.right { color: var(--teal); border-color: rgba(46,139,132,0.3); background: rgba(46,139,132,0.07); }
 .spectrum-label-row { display: flex; gap: 8px; align-items: center; }
-.vs-chip { flex-shrink: 0; font-size: 0.68rem; font-weight: 700; color: var(–muted); letter-spacing: 1.5px; }
+.vs-chip { flex-shrink: 0; font-size: 0.68rem; font-weight: 700; color: var(--muted); letter-spacing: 1.5px; }
 
 /* DEFINITION TOOLTIP */
 .def-wrap { position: relative; display: inline-block; margin-left: 6px; }
 .def-icon {
-display: inline-flex; align-items: center; justify-content: center;
-width: 18px; height: 18px; border-radius: 50%;
-background: var(–teal); color: white;
-font-size: 0.65rem; font-weight: 700; cursor: pointer;
-flex-shrink: 0; border: none; font-family: ‘Space Grotesk’, sans-serif;
-transition: background 0.2s;
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 18px; height: 18px; border-radius: 50%;
+  background: var(--teal); color: white;
+  font-size: 0.65rem; font-weight: 700; cursor: pointer;
+  flex-shrink: 0; border: none; font-family: 'Space Grotesk', sans-serif;
+  transition: background 0.2s;
 }
-.def-icon:hover { background: var(–navy); }
+.def-icon:hover { background: var(--navy); }
 .def-tooltip {
-display: none; position: absolute; bottom: 130%; left: 50%; transform: translateX(-50%);
-background: var(–navy); color: white; border-radius: 10px;
-padding: 10px 12px; font-size: 0.76rem; font-weight: 500; line-height: 1.5;
-width: 220px; z-index: 50; box-shadow: 0 6px 20px rgba(0,0,0,0.25);
-pointer-events: none;
+  display: none; position: absolute; bottom: 130%; left: 50%; transform: translateX(-50%);
+  background: var(--navy); color: white; border-radius: 10px;
+  padding: 10px 12px; font-size: 0.76rem; font-weight: 500; line-height: 1.5;
+  width: 220px; z-index: 50; box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+  pointer-events: none;
 }
 .def-tooltip::after {
-content: ‘’; position: absolute; top: 100%; left: 50%; transform: translateX(-50%);
-border: 6px solid transparent; border-top-color: var(–navy);
+  content: ''; position: absolute; top: 100%; left: 50%; transform: translateX(-50%);
+  border: 6px solid transparent; border-top-color: var(--navy);
 }
 .def-wrap:hover .def-tooltip, .def-wrap.open .def-tooltip { display: block; animation: fadeUp 0.2s ease; }
 
 /* PAIR DISPLAY WITH DEF */
 .pair-display {
-display: flex; align-items: center; justify-content: center; gap: 6px;
-margin-bottom: 14px; flex-wrap: wrap;
+  display: flex; align-items: center; justify-content: center; gap: 6px;
+  margin-bottom: 14px; flex-wrap: wrap;
 }
 .pair-side { display: flex; align-items: center; gap: 4px; }
 
@@ -232,65 +232,64 @@ margin-bottom: 14px; flex-wrap: wrap;
 .semicircle-svg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: visible; cursor: pointer; }
 
 .zones-legend { display: flex; justify-content: center; gap: 10px; margin-bottom: 8px; flex-wrap: wrap; }
-.zone-pill { display: flex; align-items: center; gap: 5px; font-size: 0.67rem; font-weight: 700; color: var(–muted); }
+.zone-pill { display: flex; align-items: center; gap: 5px; font-size: 0.67rem; font-weight: 700; color: var(--muted); }
 .zone-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
-.dial-hint { text-align: center; font-size: 0.74rem; color: var(–muted); font-weight: 600; margin-top: 22px; }
+.dial-hint { text-align: center; font-size: 0.74rem; color: var(--muted); font-weight: 600; margin-top: 22px; }
 
-.psychic-merged-card { background: var(–card); border-radius: var(–radius); padding: 18px 16px; margin-bottom: 12px; border: 1.5px solid var(–border); box-shadow: var(–shadow); }
+.psychic-merged-card { background: var(--card); border-radius: var(--radius); padding: 18px 16px; margin-bottom: 12px; border: 1.5px solid var(--border); box-shadow: var(--shadow); }
 .edit-row-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
 
 /* SAVED */
 .saved-list { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
-.saved-tag { background: rgba(46,139,132,0.1); border: 1.5px solid rgba(46,139,132,0.25); color: var(–teal); padding: 4px 10px; border-radius: 20px; font-size: 0.74rem; font-weight: 700; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; gap: 4px; }
+.saved-tag { background: rgba(46,139,132,0.1); border: 1.5px solid rgba(46,139,132,0.25); color: var(--teal); padding: 4px 10px; border-radius: 20px; font-size: 0.74rem; font-weight: 700; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; gap: 4px; }
 .saved-tag:hover { background: rgba(46,139,132,0.18); }
-.saved-tag .del { color: var(–muted); font-size: 1rem; }
+.saved-tag .del { color: var(--muted); font-size: 1rem; }
 
 /* RESULT */
 .result-box { border-radius: 14px; padding: 18px; text-align: center; margin-bottom: 12px; display: none; border: 2px solid; }
 .result-box.show { display: block; animation: fadeUp 0.4s ease; }
-.result-big { font-family: ‘Syne’, sans-serif; font-size: 2.8rem; line-height: 1; }
+.result-big { font-family: 'Syne', sans-serif; font-size: 2.8rem; line-height: 1; }
 .result-sub { font-size: 0.88rem; font-weight: 700; margin-top: 5px; }
-.result-detail { font-size: 0.74rem; color: var(–muted); margin-top: 5px; }
+.result-detail { font-size: 0.74rem; color: var(--muted); margin-top: 5px; }
 
 /* HOW TO LIST */
 .how-list { list-style: none; }
-.how-list li { display: flex; gap: 11px; align-items: flex-start; margin-bottom: 9px; font-size: 0.86rem; line-height: 1.5; color: var(–muted); }
-.how-list li strong { color: var(–text); }
-.num-b { background: var(–coral); color: white; width: 21px; height: 21px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.68rem; font-weight: 700; flex-shrink: 0; margin-top: 2px; }
+.how-list li { display: flex; gap: 11px; align-items: flex-start; margin-bottom: 9px; font-size: 0.86rem; line-height: 1.5; color: var(--muted); }
+.how-list li strong { color: var(--text); }
+.num-b { background: var(--coral); color: white; width: 21px; height: 21px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.68rem; font-weight: 700; flex-shrink: 0; margin-top: 2px; }
 
 /* WINNER */
 .winner-box { text-align: center; padding: 20px 0; }
-.trophy { font-size: 5rem; animation: boun 0.6s ease infinite alternate; display: block; margin-bottom: 12px; color: var(–mustard); font-family: ‘Syne’, sans-serif; font-weight: 800; }
+.trophy { font-size: 5rem; animation: boun 0.6s ease infinite alternate; display: block; margin-bottom: 12px; color: var(--mustard); font-family: 'Syne', sans-serif; font-weight: 800; }
 @keyframes boun { to { transform: translateY(-12px); } }
-.win-name { font-family: ‘Syne’, sans-serif; font-weight: 800; font-size: 2.4rem; color: var(–coral); }
-.win-score { color: var(–muted); font-size: 0.92rem; margin-top: 7px; font-weight: 600; }
+.win-name { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 2.4rem; color: var(--coral); }
+.win-score { color: var(--muted); font-size: 0.92rem; margin-top: 7px; font-weight: 600; }
 
 /* FAB BAR */
 .fab-bar { display: none; justify-content: center; padding: 10px 0 20px; }
 .fab-bar.visible { display: flex; }
-.fab { background: var(–card); border: 1.5px solid var(–border); border-radius: 20px; color: var(–muted); font-size: 0.82rem; font-family: ‘Space Grotesk’, sans-serif; font-weight: 700; padding: 9px 20px; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; gap: 6px; box-shadow: var(–shadow); }
-.fab:hover { border-color: var(–teal); color: var(–teal); }
+.fab { background: var(--card); border: 1.5px solid var(--border); border-radius: 20px; color: var(--muted); font-size: 0.82rem; font-family: 'Space Grotesk', sans-serif; font-weight: 700; padding: 9px 20px; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; gap: 6px; box-shadow: var(--shadow); }
+.fab:hover { border-color: var(--teal); color: var(--teal); }
 
 /* MODAL */
 .modal-overlay { position: fixed; inset: 0; background: rgba(30,45,64,0.55); z-index: 200; display: none; align-items: center; justify-content: center; padding: 20px; backdrop-filter: blur(4px); }
 .modal-overlay.open { display: flex; animation: fadeUp 0.25s ease; }
-.modal-box { background: var(–card); border-radius: 18px; padding: 24px 20px; width: 100%; max-width: 380px; border: 1.5px solid var(–border); box-shadow: 0 20px 60px rgba(30,45,64,0.25); }
+.modal-box { background: var(--card); border-radius: 18px; padding: 24px 20px; width: 100%; max-width: 380px; border: 1.5px solid var(--border); box-shadow: 0 20px 60px rgba(30,45,64,0.25); }
 .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
-.modal-header h3 { font-family: ‘Syne’, sans-serif; font-size: 1.3rem; color: var(–navy); }
-.modal-close { background: none; border: none; color: var(–muted); font-size: 1.4rem; cursor: pointer; line-height: 1; padding: 2px 6px; border-radius: 6px; }
-.modal-close:hover { color: var(–text); }
+.modal-header h3 { font-family: 'Syne', sans-serif; font-size: 1.3rem; color: var(--navy); }
+.modal-close { background: none; border: none; color: var(--muted); font-size: 1.4rem; cursor: pointer; line-height: 1; padding: 2px 6px; border-radius: 6px; }
+.modal-close:hover { color: var(--text); }
 .modal-level-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; }
 
 .confetti-piece { position: fixed; width: 10px; height: 10px; top: -10px; border-radius: 2px; animation: cfal linear forwards; pointer-events: none; z-index: 999; }
 @keyframes cfal { to { transform: translateY(110vh) rotate(720deg); opacity: 0; } }
 
 @media(max-width:480px){
-.btn-row{flex-direction:column;}
-.spectrum-edit-row{grid-template-columns:1fr;}
-.vs-box{display:none;}
+  .btn-row{flex-direction:column;}
+  .spectrum-edit-row{grid-template-columns:1fr;}
+  .vs-box{display:none;}
 }
 </style>
-
 </head>
 <body>
 <div class="bg-shapes">
@@ -312,7 +311,6 @@ margin-bottom: 14px; flex-wrap: wrap;
   </header>
 
   <!-- SETUP -->
-
   <div class="screen active" id="s-setup">
     <div class="card">
       <div class="card-title">How to Play</div>
@@ -324,140 +322,128 @@ margin-bottom: 14px; flex-wrap: wrap;
       </ul>
     </div>
 
-```
-<div class="card">
-  <div class="card-title">Vocabulary Level</div>
-  <div class="level-grid">
-    <div class="level-btn selected" id="lvl-easy" onclick="selectLevel('easy')">
-      <div class="lv-name">Easy</div>
-      <div class="lv-desc">Simple, familiar words</div>
+    <div class="card">
+      <div class="card-title">Vocabulary Level</div>
+      <div class="level-grid">
+        <div class="level-btn selected" id="lvl-easy" onclick="selectLevel('easy')">
+          <div class="lv-name">Easy</div>
+          <div class="lv-desc">Simple, familiar words</div>
+        </div>
+        <div class="level-btn" id="lvl-moderate" onclick="selectLevel('moderate')">
+          <div class="lv-name">Moderate</div>
+          <div class="lv-desc">Everyday nuance</div>
+        </div>
+        <div class="level-btn" id="lvl-advanced" onclick="selectLevel('advanced')">
+          <div class="lv-name">Advanced</div>
+          <div class="lv-desc">Rich vocabulary</div>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="card-title">Players / Teams</div>
+      <label class="solo-toggle">
+        <input type="checkbox" id="solo-mode" onchange="toggleSoloMode()">
+        <span>Solo / Pair mode — no teams, just track total score</span>
+      </label>
+      <div id="teams-section">
+        <div class="teams-list" id="teams-list"></div>
+        <button class="btn btn-ghost" onclick="addTeam()" style="font-size:0.82rem;padding:10px">+ Add team</button>
+      </div>
     </div>
-    <div class="level-btn" id="lvl-moderate" onclick="selectLevel('moderate')">
-      <div class="lv-name">Moderate</div>
-      <div class="lv-desc">Everyday nuance</div>
-    </div>
-    <div class="level-btn" id="lvl-advanced" onclick="selectLevel('advanced')">
-      <div class="lv-name">Advanced</div>
-      <div class="lv-desc">Rich vocabulary</div>
-    </div>
-  </div>
 
-  <div class="divider"></div>
-
-  <div class="card-title">Players / Teams</div>
-  <label class="solo-toggle">
-    <input type="checkbox" id="solo-mode" onchange="toggleSoloMode()">
-    <span>Solo / Pair mode — no teams, just track total score</span>
-  </label>
-  <div id="teams-section">
-    <div class="teams-list" id="teams-list"></div>
-    <button class="btn btn-ghost" onclick="addTeam()" style="font-size:0.82rem;padding:10px">+ Add team</button>
-  </div>
-</div>
-
-<button class="btn btn-primary" onclick="startGame()" style="opacity:1;background:var(--coral);">Start Game</button>
-```
-
+    <button class="btn btn-primary" onclick="startGame()" style="opacity:1;background:var(--coral);">Start Game</button>
   </div>
 
   <!-- PSYCHIC SCREEN -->
-
   <div class="screen" id="s-psychic">
     <div id="sb-py" class="scoreboard"></div>
     <div class="turn-lbl" id="lbl-py"></div>
     <div class="phase-tag psychic"><span>Psychic only — don't show the screen</span></div>
 
-```
-<div class="psychic-merged-card">
-  <div class="edit-row-header">
-    <div class="card-title" style="margin:0">This Round's Spectrum</div>
-    <button class="shuffle-btn" onclick="shufflePair()">🔀 New pair</button>
-  </div>
-  <p class="spectrum-hint" style="margin-bottom:10px">Feel free to edit either side below, or type your own. The dial updates as you type.</p>
+    <div class="psychic-merged-card">
+      <div class="edit-row-header">
+        <div class="card-title" style="margin:0">This Round's Spectrum</div>
+        <button class="shuffle-btn" onclick="shufflePair()">🔀 New pair</button>
+      </div>
+      <p class="spectrum-hint" style="margin-bottom:10px">Feel free to edit either side below, or type your own. The dial updates as you type.</p>
 
-  <div class="spectrum-edit-row" style="margin-bottom:6px">
-    <div>
-      <label class="field-label">Left End</label>
-      <input type="text" id="left-in" maxlength="34" placeholder="e.g. Useless" oninput="onLabelInput()">
+      <div class="spectrum-edit-row" style="margin-bottom:6px">
+        <div>
+          <label class="field-label">Left End</label>
+          <input type="text" id="left-in" maxlength="34" placeholder="e.g. Useless" oninput="onLabelInput()">
+        </div>
+        <div class="vs-box">VS</div>
+        <div>
+          <label class="field-label">Right End</label>
+          <input type="text" id="right-in" maxlength="34" placeholder="e.g. Very Useful" oninput="onLabelInput()">
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+        <div class="card-title" style="margin:0;font-size:0.66rem">Saved <span style="text-transform:none;letter-spacing:0;font-weight:500">(tap to load)</span></div>
+        <button class="shuffle-btn" onclick="savePair()">Save</button>
+      </div>
+      <div class="saved-list" id="saved-list"></div>
+
+      <div class="divider"></div>
+
+      <div class="zones-legend">
+        <div class="zone-pill"><div class="zone-dot" style="background:#2e8b84"></div>Bullseye (4)</div>
+        <div class="zone-pill"><div class="zone-dot" style="background:#d4a017"></div>Close (3)</div>
+        <div class="zone-pill"><div class="zone-dot" style="background:#c0522a"></div>Near (2)</div>
+        <div class="zone-pill"><div class="zone-dot" style="background:#e8614a"></div>Far (1)</div>
+      </div>
+
+      <div class="dial-section" style="margin-top:10px">
+        <div class="semicircle-wrap">
+          <svg class="semicircle-svg" id="py-svg" viewBox="0 0 400 240"></svg>
+        </div>
+      </div>
+      <p style="font-size:0.76rem;color:var(--muted);text-align:center;margin-top:22px;font-weight:600">Memorise the target position, then give your clue out loud.</p>
     </div>
-    <div class="vs-box">VS</div>
-    <div>
-      <label class="field-label">Right End</label>
-      <input type="text" id="right-in" maxlength="34" placeholder="e.g. Very Useful" oninput="onLabelInput()">
-    </div>
-  </div>
 
-  <div class="divider"></div>
-
-  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
-    <div class="card-title" style="margin:0;font-size:0.66rem">Saved <span style="text-transform:none;letter-spacing:0;font-weight:500">(tap to load)</span></div>
-    <button class="shuffle-btn" onclick="savePair()">Save</button>
-  </div>
-  <div class="saved-list" id="saved-list"></div>
-
-  <div class="divider"></div>
-
-  <div class="zones-legend">
-    <div class="zone-pill"><div class="zone-dot" style="background:#2e8b84"></div>Bullseye (4)</div>
-    <div class="zone-pill"><div class="zone-dot" style="background:#d4a017"></div>Close (3)</div>
-    <div class="zone-pill"><div class="zone-dot" style="background:#c0522a"></div>Near (2)</div>
-    <div class="zone-pill"><div class="zone-dot" style="background:#e8614a"></div>Far (1)</div>
-  </div>
-
-  <div class="dial-section" style="margin-top:10px">
-    <div class="semicircle-wrap">
-      <svg class="semicircle-svg" id="py-svg" viewBox="0 0 400 240"></svg>
-    </div>
-  </div>
-  <p style="font-size:0.76rem;color:var(--muted);text-align:center;margin-top:22px;font-weight:600">Memorise the target position, then give your clue out loud.</p>
-</div>
-
-<button class="btn btn-teal" onclick="goToTeam()">Done — Pass to Team</button>
-```
-
+    <button class="btn btn-teal" onclick="goToTeam()">Done — Pass to Team</button>
   </div>
 
   <!-- TEAM VIEW -->
-
   <div class="screen" id="s-team">
     <div id="sb-tm" class="scoreboard"></div>
     <div class="turn-lbl" id="lbl-tm"></div>
     <div class="phase-tag team"><span>Debate and move the needle</span></div>
 
-```
-<div class="card">
-  <!-- Pair display with definition helpers -->
-  <div class="pair-display" id="pair-display"></div>
+    <div class="card">
+      <!-- Pair display with definition helpers -->
+      <div class="pair-display" id="pair-display"></div>
 
-  <div class="zones-legend" style="margin-bottom:10px">
-    <div class="zone-pill"><div class="zone-dot" style="background:#2e8b84"></div>Bullseye (4)</div>
-    <div class="zone-pill"><div class="zone-dot" style="background:#d4a017"></div>Close (3)</div>
-    <div class="zone-pill"><div class="zone-dot" style="background:#c0522a"></div>Near (2)</div>
-    <div class="zone-pill"><div class="zone-dot" style="background:#e8614a"></div>Far (1)</div>
-  </div>
+      <div class="zones-legend" style="margin-bottom:10px">
+        <div class="zone-pill"><div class="zone-dot" style="background:#2e8b84"></div>Bullseye (4)</div>
+        <div class="zone-pill"><div class="zone-dot" style="background:#d4a017"></div>Close (3)</div>
+        <div class="zone-pill"><div class="zone-dot" style="background:#c0522a"></div>Near (2)</div>
+        <div class="zone-pill"><div class="zone-dot" style="background:#e8614a"></div>Far (1)</div>
+      </div>
 
-  <div class="dial-section">
-    <div class="semicircle-wrap">
-      <svg class="semicircle-svg" id="tm-svg" viewBox="0 0 400 240"></svg>
+      <div class="dial-section">
+        <div class="semicircle-wrap">
+          <svg class="semicircle-svg" id="tm-svg" viewBox="0 0 400 240"></svg>
+        </div>
+      </div>
+      <div class="dial-hint" id="dial-hint">Drag the needle or tap anywhere on the dial</div>
     </div>
-  </div>
-  <div class="dial-hint" id="dial-hint">Drag the needle or tap anywhere on the dial</div>
-</div>
 
-<div class="result-box" id="result-box">
-  <div class="result-big" id="r-big"></div>
-  <div class="result-sub" id="r-sub"></div>
-  <div class="result-detail" id="r-detail"></div>
-</div>
-<div id="team-actions">
-  <button class="btn btn-primary" onclick="lockIn()">Lock In</button>
-</div>
-```
-
+    <div class="result-box" id="result-box">
+      <div class="result-big" id="r-big"></div>
+      <div class="result-sub" id="r-sub"></div>
+      <div class="result-detail" id="r-detail"></div>
+    </div>
+    <div id="team-actions">
+      <button class="btn btn-primary" onclick="lockIn()">Lock In</button>
+    </div>
   </div>
 
   <!-- WINNER -->
-
   <div class="screen" id="s-winner">
     <div class="winner-box">
       <span class="trophy">★</span>
@@ -471,7 +457,6 @@ margin-bottom: 14px; flex-wrap: wrap;
   </div>
 
   <!-- FOOTER -->
-
   <footer style="text-align:center;padding:24px 0 10px;margin-top:10px;border-top:1.5px solid var(--border);">
     <p style="font-size:0.7rem;color:var(--muted);font-weight:500;line-height:1.7;">
       Inspired by the Wavelength board game by Wolfgang Warsch, Alex Hague &amp; Justin Vickers.<br>
@@ -480,14 +465,12 @@ margin-bottom: 14px; flex-wrap: wrap;
   </footer>
 
   <!-- FAB BAR -->
-
   <div class="fab-bar" id="fab-bar">
     <button class="fab" onclick="openModal()">Change Level</button>
   </div>
 </div>
 
 <!-- MODAL -->
-
 <div class="modal-overlay" id="level-modal" onclick="closeModalOutside(event)">
   <div class="modal-box">
     <div class="modal-header">
@@ -995,6 +978,5 @@ function confetti(n){
 initTeamsList();
 renderSaved();
 </script>
-
 </body>
 </html>
